@@ -72,7 +72,7 @@ public void openConnection() throws SQLException, ClassNotFoundException {
 @EventHandler
 public void onClickNPC (PlayerInteractEntityEvent event) {
 	
-	System.out.println(event.getRightClicked().getName());
+
 	if (event.getRightClicked().getName().equals("§b§lChovatel")) {
 	clickedplayer = event.getPlayer();
 
@@ -228,13 +228,12 @@ public void onClickNPC (PlayerInteractEntityEvent event) {
 		    vec = vec.replaceAll(" ", "");
 	    	pocett = odmena.replaceAll("[a-zA-Z]", "");
 	    	pocett = pocett.replaceAll(" ", "");
-	    	 System.out.println("replaced pocet: "+pocett);
+	    
 	    	 pocet = Integer.parseInt(pocett);
-	    	  System.out.println(pocet+"x "+vec);
+
 	    	  mat = Material.matchMaterial(vec);
 	    	 odmenafinal = new ItemStack(mat,pocet);
 	    	name.getInventory().addItem(odmenafinal);
-	    	System.out.println("given!");
 	     }
 		 	result =  statement.executeQuery("select * from statistiky where hrac='"+name.getName()+"'");
 	 	      
