@@ -1,0 +1,15 @@
+on death of player:
+ victim has permission "inventory.keep"
+ loop all items in inventory of victim:
+  add the loop-item to {invik.%victim%::*}
+  clear drops
+ add chestplate of victim to {invik.%victim%::*}
+ add leggings of victim to {invik.%victim%::*}
+ add helmet of victim to {invik.%victim%::*}
+ add boots of victim to {invik.%victim%::*}
+  
+on respawn:
+ if player has permission "inventory.keep":
+  give {invik.%player%::*} to player 
+  clear {invik.%player%::*}
+  delete {invik.%player%::*}
