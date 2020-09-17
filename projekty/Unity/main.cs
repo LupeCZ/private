@@ -5,18 +5,18 @@ using System.Collections;
 using TMPro;
 
 public class NPCController :MonoBehaviour {
-    public float patrolTime = 15; // time in seconds to wait before seeking a new patrol destination
-    public float aggroRange = 10; // distance in scene units below which the NPC will increase speed and seek the player
-    public Transform[] waypoints; // collection of waypoints which define a patrol area
+    public float patrolTime = 15; 
+    public float aggroRange = 10; 
+    public Transform[] waypoints; 
     private Animator anim;
     public AnimationClip ItsAttack01;
-    int index; // the current waypoint index in the waypoints array
-    double speed, agentSpeed; // current agent speed and NavMeshAgent component speed
-    Transform player; // reference to the player object transform
+    int index; 
+    double speed, agentSpeed; 
+    Transform player; 
     Transform volcano;
-    Transform velociraptor; // reference to the player object transform
-    Animator animator; // reference to the animator component
-    NavMeshAgent agent; // reference to the NavMeshAgent
+    Transform velociraptor; 
+    Animator animator; 
+    NavMeshAgent agent; 
     public int zdravihrace = 30;
     public double zdravihraceprocent = 100;
     private Animation animace;
@@ -36,21 +36,17 @@ void OnGUI() {
     }
     void Awake() {
             shown = false;
-    //   GameObject.Find("textbubble").GetComponent<Renderer>().enabled = false;
-    // GameObject.Find("textbubble").Texture = none;
-    //  GameObject.Find("Textinbubble").SetActive(false);
+    
     RectTransform rt = GameObject.Find("textbubble").GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(0,0);
 
-     //   textbubble = GameObject.Find("textbubble");
+    
         string hpbar = "----------";
         bubbletext = GameObject.Find("Textinbubble").GetComponent<TextMeshProUGUI>();
         bubbletext.GetComponent<TextMeshProUGUI>().text = "";
 
     zdravihrace = 30;
-        //ctext1_var = GameObject.Find("hptext").GetComponent<Text>();
-        //ctext1_var.GetComponent<Text>().text = zdravihrace + " HP";
-        //ctext1_var.GetComponent<Text>().fontSize = 10;
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -71,8 +67,7 @@ void OnGUI() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         volcano = GameObject.Find("vnitreksopky").transform;
         double distancebetween = Vector3.Distance(player.position,volcano.position);
-        // temperaturetext = GameObject.Find("temperaturetext").GetComponent<TextMeshProUGUI>();
-        //temperaturetext.GetComponent<TextMeshProUGUI>().text = "" + distancebetween;
+     
 
         if (distancebetween < 250 && distancebetween > 240) {
             temperaturestat = GameObject.Find("StatusTemperature").GetComponent<TextMeshProUGUI>();
@@ -189,8 +184,7 @@ void OnGUI() {
         anim = GetComponent<Animator>();
         agent.destination = waypoints[index].position;
         velociraptor = GameObject.FindGameObjectWithTag("Velociraptor").transform;
-       // raptori = GameObject.FindGameObjectsWithTag("Velociraptor");
-
+    
             double dist = Vector3.Distance(player.position,velociraptor.position);
 
 
@@ -217,7 +211,7 @@ void OnGUI() {
                 int i = (int)num;
                 hpstat.GetComponent<TextMeshProUGUI>().text = i+ "% (" + zdravihrace + "/30)";
 
-        //        ctext1_var.GetComponent<Text>().text = zdravihrace + " HP\r\n"+hpbar;
+      
             }
 
 
