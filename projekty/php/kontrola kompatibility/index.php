@@ -591,4 +591,3 @@ $result = $conn->query($sql);
   $_SESSION["type"] = null;
   $_GET["type"] = null;
 ?>
-
