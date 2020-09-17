@@ -1,0 +1,1770 @@
+#                                                                              #
+#                                                                              #
+#                         Mechanic Machines                                    #
+#                         by LupeCZ_                                           #
+#                         Version 1.8                                          #
+#                         By continue with reading, you agree                  #
+#                         that you will NOT CHANGE CODE, SPREAD IT,            #
+#                         CHANGE AUTHOR OR CHANGE CODE!                        #
+#                         By change this code, you agree with fact             #
+#                         that change this code can cause problems!            #
+
+
+variables:
+ {first} = true 
+ {reloadings} = 0 
+ {collectoptions.%player%} = false 
+ {time} = 0
+
+on load:
+ if file "plugins/Mechanic Machines/config.yml" doesn't exist:
+  create file "plugins/Mechanic Machines/config.yml"
+  set yaml value "options.Skript.prefix" of file "plugins/Mechanic Machines/config.yml" to "&0&l[&6&lMechanic Machines&0&l]" 
+  set yaml value "options.Skript.checkupdates" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.Skript.version" of file "plugins/Mechanic Machines/config.yml" to "1.8" 
+  set yaml value "options.Skript.locale" of file "plugins/Mechanic Machines/config.yml" to "en" 
+  set yaml value "options.breaker.name" of file "plugins/Mechanic Machines/config.yml" to "&0&l[&6&lBreaker&0&l]" 
+  set yaml value "options.breaker.lore" of file "plugins/Mechanic Machines/config.yml" to "&aThis_special_block|_&acan_mine_blocks_and_put_|_&ato_chest_below_it." 
+  set yaml value "options.breaker.max_blocks_break" of file "plugins/Mechanic Machines/config.yml" to "3200" 
+  set yaml value "options.breaker.use" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.breaker.log.Break.all" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.breaker.log.Break.player" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.breaker.log.Place.all" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.breaker.log.Place.player" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.name" of file "plugins/Mechanic Machines/config.yml" to "&0&l[&6&lFoodGenerator&0&l]"
+  set yaml value "options.foodgenerator.lore" of file "plugins/Mechanic Machines/config.yml" to "&aThis_special_block|_&acan_drop_food|_&aand_drop_it_on_ground." 
+  set yaml value "options.foodgenerator.cooldown" of file "plugins/Mechanic Machines/config.yml" to "5"
+  set yaml value "options.foodgenerator.max_food_drop" of file "plugins/Mechanic Machines/config.yml" to "3200"
+  set yaml value "options.foodgenerator.use" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.log.Break.all" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.log.Break.player" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.log.Place.all" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.log.Place.player" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.melon" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.drops.fish" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.gapple" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.gapple:2" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.drops.steak" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.porkchop" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.rabbit" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.carrot" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.potato" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.apple" of file "plugins/Mechanic Machines/config.yml" to "true" 
+  set yaml value "options.foodgenerator.drops.cake" of file "plugins/Mechanic Machines/config.yml" to "true"  
+  set yaml value "options.foodgenerator.drops.pumpkin_pie" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.drops.chicken" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.drops.bread" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.drops.baked_potato" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.drops.mushroom_stew" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.foodgenerator.drops.rabbit_stew" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.autominer.name" of file "plugins/Mechanic Machines/config.yml" to "&0&l[&a&lAutominer&0&l]"
+  set yaml value "options.autominer.lore" of file "plugins/Mechanic Machines/config.yml" to "&aThis_special_block|_&acan_mine_blocks_around_it_and_put_|_&ato_chest_below_it."
+  set yaml value "options.autominer.radius" of file "plugins/Mechanic Machines/config.yml" to "20" 
+  set yaml value "options.autominer.use" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.autominer.log.Break.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.autominer.log.Break.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.autominer.log.Place.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.autominer.log.Place.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.tamer.use" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.tamer.name" of file "plugins/Mechanic Machines/config.yml" to "&0&l[&a&lTamer&0&l]"
+  set yaml value "options.tamer.lore" of file "plugins/Mechanic Machines/config.yml" to "&aThis_special_block|_&acan_tame_entities_in_radius_"
+  set yaml value "options.tamer.maxtime" of file "plugins/Mechanic Machines/config.yml" to "20"
+  set yaml value "options.tamer.cooldown" of file "plugins/Mechanic Machines/config.yml" to "10"
+  set yaml value "options.tamer.radius" of file "plugins/Mechanic Machines/config.yml" to "10"
+  set yaml value "options.tamer.log.Break.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.tamer.log.Break.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.tamer.log.Place.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.tamer.log.Place.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.woodcutter.use" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.woodcutter.name" of file "plugins/Mechanic Machines/config.yml" to "&b&lWood&c&lCutter"
+  set yaml value "options.woodcutter.lore" of file "plugins/Mechanic Machines/config.yml" to "&aThis_special_block|&acan_cut_all_logs|in_some_radius_and|&aput_it_into_chest|&aabove_it"
+  set yaml value "options.woodcutter.radius.player" of file "plugins/Mechanic Machines/config.yml" to "10"
+  set yaml value "options.woodcutter.radius.block" of file "plugins/Mechanic Machines/config.yml" to "10"
+  set yaml value "options.woodcutter.check.cooldown" of file "plugins/Mechanic Machines/config.yml" to "10"
+  set yaml value "options.woodcutter.log.Break.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.woodcutter.log.Break.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.woodcutter.log.Place.all" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "options.woodcutter.log.Place.player" of file "plugins/Mechanic Machines/config.yml" to "true"
+  set yaml value "message_breaker_break" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <breakername> &b&lwas succesfully destroyed and gived to you"
+  set yaml value "message_breaker_placed" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <breakername> &b&lwas succesfully placed and you must turn on it"
+  set yaml value "message_breaker_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <breakername>"
+  set yaml value "message_breaker_on" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <breakername> &b&lwas turn on succesfully"
+  set yaml value "message_breaker_off" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <breakername>&b&l was turn off succesfully"
+  set yaml value "message_breaker_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_woodcutter_break" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <woodcuttername> &b&lwas succesfully destroyed and gived to you"
+  set yaml value "message_woodcutter_placed" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <woodcuttername> &b&lwas succesfully placed and you must turn on it"
+  set yaml value "message_woodcutter_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <woodcuttername>" 
+  set yaml value "message_woodcutter_on" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <woodcuttername> &b&lwas turn on succesfully" 
+  set yaml value "message_woodcutter_off" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <woodcuttername>&b&l was turn off succesfully" 
+  set yaml value "message_woodcutter_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_foodgenerator_break" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&l<foodgeneratorname> &b&lwas succesfully destroyed and gived to you"
+  set yaml value "message_foodgenerator_placed" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <foodgeneratorname> &b&lwas succesfully placed and you must turn on it"
+  set yaml value "message_foodgenerator_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <foodgeneratorname>"
+  set yaml value "message_foodgenerator_on" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <foodgeneratorname> &b&lwas turn on succesfully"
+  set yaml value "message_foodgenerator_off" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <foodgeneratorname> &b&lwas turn off succesfully"
+  set yaml value "message_foodgenerator_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_autominer_break" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&l<autominername> &b&lwas succesfully destroyed and gived to you" 
+  set yaml value "message_autominer_placed" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <autominername> &b&lwas succesfully placed and you must turn on it"
+  set yaml value "message_autominer_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <autominername>"
+  set yaml value "message_autominer_activated" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&l<autominername> &b&lwas activated and broke blocks"
+  set yaml value "message_autominer_salvage_not_set" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lSalvage is not set! use /autominer set salvage "
+  set yaml value "message_autominer_reset_salvage_no_perms" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &cYou cant do this_ if you think that its error, contact admin"
+  set yaml value "message_autominer_set_salvage_no_perms" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &cYou cant do this_ if you think that its error, contact admin"
+  set yaml value "message_autominer_salvage_reseted" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aSalvage was reseted"
+  set yaml value "message_autominer_set_salvage" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aNow click on salvage"
+  set yaml value "message_autominer_salvage_was_set" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aSalvage was succesfully set"
+  set yaml value "message_autominer_salvage_not_set" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aSalvage is not set!"
+  set yaml value "message_autominer_salvage_already_set" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aSalvage is already set!"
+  set yaml value "message_autominer_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_crystal_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_tamer_break" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&l<tamername> &b&lwas succesfully destroyed and gived to you"
+  set yaml value "message_tamer_placed" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <tamername> &b&lwas succesfully placed and you must turn on it"
+  set yaml value "message_tamer_on" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <tamername> &b&lwas turn on succesfully" 
+  set yaml value "message_tamer_off" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> <tamername> &b&lwas turn off succesfully"
+  set yaml value "message_tamer_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <tamername>"
+  set yaml value "message_tamer_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou dont have permission to do this "
+  set yaml value "message_autominer_give_not_permission" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou do not have permission to do it! Contact administrator if you think it is error! "
+  set yaml value "message_crystal_gived" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &b&lYou earned <crystalname>"
+  set yaml value "plugin_update_available" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &4&lNew version is available! The newest version is <latestversion> and you are running on <version>. Download it from spigot!" 
+  set yaml value "plugin_update_not_available" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&lYou are running on latest version (<version>). "
+  set yaml value "plugin_loaded_succesfully_broadcast" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&l Script was loaded succesfully! "
+  set yaml value "plugin_loaded_succesfully_console" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&lScript was loaded succesfully! "
+  set yaml value "plugin_reload_lang" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&l Languages were succesfully reloaded "
+  set yaml value "plugin_reload_config" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&l Config was succesfully reloaded "
+  set yaml value "plugin_error_reload" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&l Chyba! Pouzij /mm reload <locales/config>"
+  set yaml value "plugin_error_reload" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&l Error! Use /mm reload <locales/config>"
+  set yaml value "plugin_your_version" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &aYour version"
+  set yaml value "plugin_latest_version" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &6Latest version"
+  set yaml value "message_breaker_break" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<breakername> &b&lbyl uspesne znicen a dan do invu"
+  set yaml value "message_breaker_placed" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<breakername> &b&lbyl uspesne polozen a musis ho zapnout"
+  set yaml value "message_breaker_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <breakername>"
+  set yaml value "message_breaker_on" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<breakername> &b&lbyl uspesne zapnut"
+  set yaml value "message_breaker_off" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<breakername> &b&lbyl uspesne vypnut"
+  set yaml value "message_breaker_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set {messagecz.reload.config} to "%yaml value ""plugin.reload_config"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+  set {messageen.reload.config} to "%yaml value ""plugin.reload_config"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+  set yaml value "message_woodcutter_break" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<woodcuttername> &b&lbyl uspesne znicen a dan do invu"
+  set yaml value "message_woodcutter_placed" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<woodcuttername> &b&lbyl uspesne polozen a musis ho zapnout"
+  set yaml value "message_woodcutter_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <woodcuttername>"
+  set yaml value "message_woodcutter_on" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<woodcuttername> &b&lbyl uspesne zapnut"
+  set yaml value "message_woodcutter_off" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<woodcuttername> &b&lbyl uspesne vypnut"
+  set yaml value "message_woodcutter_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_foodgenerator_break" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<foodgeneratorname> &b&lbyl uspesne znicen a dan do invu"
+  set yaml value "message_foodgenerator_placed" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<foodgeneratorname> &b&lbyl uspesne polozen a musis ho zapnout"
+  set yaml value "message_foodgenerator_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <foodgeneratorname>"
+  set yaml value "message_foodgenerator_on" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<foodgeneratorname> &b&lbyl zapnut"
+  set yaml value "message_foodgenerator_off" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<foodgeneratorname> &b&lbyl vypnut"
+  set yaml value "message_foodgenerator_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_crystal_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_autominer_break" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<autominername> &b&lbyl uspesne znicen a dan do invu"
+  set yaml value "message_autominer_placed" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<autominername> &b&lbyl uspesne polozen a musis ho zapnout"
+  set yaml value "message_autominer_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <autominername>"
+  set yaml value "message_autominer_activated" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<autominername> &b&lbyl aktivovan a vykopal bloky" 
+  set yaml value "message_autominer_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_autominer_salvage_not_set" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lSberne misto neni nastaveno!  Pouzij /autominer set salvage "
+  set yaml value "message_autominer_reset_salvage_no_perms" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &cToto nemas pravo udelat"
+  set yaml value "message_autominer_set_salvage_no_perms" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &cToto nemas pravo udelat"
+  set yaml value "message_autominer_salvage_reseted" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aSberne misto bylo resetovano"
+  set yaml value "message_autominer_set_salvage" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aNyni klikni tam, kam chces nastavit sberne misto"
+  set yaml value "message_autominer_salvage_already_set" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aSberne misto je jiz nastaveno!"
+  set yaml value "message_autominer_salvage_was_set" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aSberne misto bylo uspesne nastaveno"
+  set yaml value "message_autominer_salvage_not_set" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aSberne misto neni nastaveno!!"
+  set yaml value "message_tamer_break" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<tamername> &b&lbyl uspesne znicen a dan do invu"
+  set yaml value "message_tamer_placed" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<tamername> &b&lbyl uspesne polozen a musis ho zapnout"
+  set yaml value "message_tamer_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <tamername>"
+  set yaml value "message_tamer_on" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<tamername> &b&lbyl zapnut"
+  set yaml value "message_tamer_off" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&l<tamername> &b&lbyl vypnut"
+  set yaml value "message_tamer_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_crystal_give_not_permission" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas prava toto udelat. Pokud si myslis, ze se jedna o chybu, kontaktuj administratora! "
+  set yaml value "message_crystal_gived" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &b&lZiskal jsi <crystalname>"  
+  set yaml value "plugin_update_available" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &4&lNova verze je dostupna - <latestversion>. Pouzivas verzi <version>. Stahni novou ze spigotu"
+  set yaml value "plugin_update_not_available" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&lBezis na nejnovejsi verzi (<version>). "
+  set yaml value "plugin_loaded_succesfully_broadcast" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&l Skript byl uspesne zapnut! "
+  set yaml value "plugin_loaded_succesfully_console" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&lSkript byl uspesne zapnut! "
+  set yaml value "plugin_reload_lang" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&l Jazyky byly uspesne reloadnuty " 
+  set yaml value "plugin_reload_config" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&l Config byl uspesne znovunacten "
+  set yaml value "plugin_error_reload" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &a&l Error! Use /mm reload <config/locales>"
+  set yaml value "plugin_error_reload" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &a&l Chyba! Pouzij /mm reload <config/locales>"
+  set yaml value "plugin_your_version" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &aTva verze"
+  set yaml value "plugin_latest_version" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &6Posledni verze"
+  set yaml value "message_nomoney" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNemas dostatek penez"
+  set yaml value "message_itembought" of file "plugins/Mechanic Machines/locale/cz.yml" to "<prefix> &c&lNakup byl uspesny"
+  set yaml value "message_nomoney" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou havent got enough money"
+  set yaml value "message_itembought" of file "plugins/Mechanic Machines/locale/en.yml" to "<prefix> &c&lYou have bought item"
+ if file "plugins/Mechanic Machines/shop.yml" doesn't exist:
+  create file "plugins/Mechanic Machines/shop.yml"
+  set yaml value "enabled" of file "plugins/Mechanic Machines/shop.yml" to "true" 
+  set yaml value "command" of file "plugins/Mechanic Machines/shop.yml" to "mechanicshop"
+  set yaml value "permission" of file "plugins/Mechanic Machines/shop.yml" to "MechanicMachines.shop" 
+  set yaml value "shopname" of file "plugins/Mechanic Machines/shop.yml" to "MechanicShop"
+  set yaml value "1" of file "plugins/Mechanic Machines/shop.yml" to ""
+  set yaml value "1.item" of file "plugins/Mechanic Machines/shop.yml" to "Breaker"
+  set yaml value "1.lore" of file "plugins/Mechanic Machines/shop.yml" to "Price: <price>"
+  set yaml value "1.name" of file "plugins/Mechanic Machines/shop.yml" to "&bBreaker"
+  set yaml value "1.price" of file "plugins/Mechanic Machines/shop.yml" to "500000"
+  set yaml value "1.amount" of file "plugins/Mechanic Machines/shop.yml" to "1"
+  set yaml value "2" of file "plugins/Mechanic Machines/shop.yml" to ""
+  set yaml value "2.item" of file "plugins/Mechanic Machines/shop.yml" to "AutoMiner"
+  set yaml value "2.lore" of file "plugins/Mechanic Machines/shop.yml" to "Price: <price>"
+  set yaml value "2.name" of file "plugins/Mechanic Machines/shop.yml" to "&bAutoMiner"
+  set yaml value "2.price" of file "plugins/Mechanic Machines/shop.yml" to "350000"
+  set yaml value "2.amount" of file "plugins/Mechanic Machines/shop.yml" to "1"
+  set yaml value "3" of file "plugins/Mechanic Machines/shop.yml" to ""
+  set yaml value "3.item" of file "plugins/Mechanic Machines/shop.yml" to "Tamer"
+  set yaml value "3.lore" of file "plugins/Mechanic Machines/shop.yml" to "Price: <price>"
+  set yaml value "3.name" of file "plugins/Mechanic Machines/shop.yml" to "&bTamer"
+  set yaml value "3.price" of file "plugins/Mechanic Machines/shop.yml" to "350000"
+  set yaml value "3.amount" of file "plugins/Mechanic Machines/shop.yml" to "1"
+  set yaml value "4" of file "plugins/Mechanic Machines/shop.yml" to ""
+  set yaml value "4.item" of file "plugins/Mechanic Machines/shop.yml" to "FoodGenerator"
+  set yaml value "4.lore" of file "plugins/Mechanic Machines/shop.yml" to "Price: <price>"
+  set yaml value "4.name" of file "plugins/Mechanic Machines/shop.yml" to "&bFoodGenerator"
+  set yaml value "4.price" of file "plugins/Mechanic Machines/shop.yml" to "350000"
+  set yaml value "4.amount" of file "plugins/Mechanic Machines/shop.yml" to "1"
+  set yaml value "5" of file "plugins/Mechanic Machines/shop.yml" to ""
+  set yaml value "5.item" of file "plugins/Mechanic Machines/shop.yml" to "WoodCutter"
+  set yaml value "5.lore" of file "plugins/Mechanic Machines/shop.yml" to "Price: <price>"
+  set yaml value "5.name" of file "plugins/Mechanic Machines/shop.yml" to "&bWoodCutter"
+  set yaml value "5.price" of file "plugins/Mechanic Machines/shop.yml" to "450000"
+  set yaml value "5.amount" of file "plugins/Mechanic Machines/shop.yml" to "1"
+on load:
+ set {mechprefix} to "%yaml value ""options.Skript.prefix"" of file ""plugins/Mechanic Machines/config.yml""%"
+ delete file "plugins/Mechanic Machines/updates/latestversion.yml"
+ download file from "http://Mechanics.9e.cz/version.yml" to file "plugins/Mechanic Machines/updates/latestversion.yml"
+ set {version} to "%yaml value ""options.Skript.version"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {latestversion} to "%yaml value ""latestversion"" of file ""plugins/Mechanic Machines/updates/latestversion.yml""%"
+ if {version} is {latestversion}:
+  if {mechanicsmachinelocale} is "cs" or "cz":
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.Skript.updatenotavailable}
+   replace all "<version>" with "%{version}%" in {messagecz.Skript.updatenotavailable}
+   loop all players:
+    if loop-player has permission "MechanicMachines.see.info":
+     broadcast "&b&l%{messagecz.Skript.updatenotavailable}%"
+  else:
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.Skript.updatenotavailable}
+   replace all "<version>" with "%{version}%" in {messageen.Skript.updatenotavailable}
+   loop all players:
+    if loop-player has permission "MechanicMachines.see.info":
+     broadcast "&b&l%{messageen.Skript.updatenotavailable}%"
+ else:
+  if {mechanicsmachinelocale} is "cs" or "cz":
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.Skript.updateavailable}
+   replace all "<version>" with "%{version}%" in {messagecz.Skript.updateavailable}  
+   replace all "<latesversion>" with "%{latestversion}%" in {messagecz.Skript.updateavailable} 
+   replace all "<latestversion>" with "%{latestversion}%" in {messagecz.Skript.updateavailable} 
+   loop all players:
+    if loop-player has permission "MechanicMachines.see.info":
+     broadcast "&b&l%{messagecz.Skript.updateavailable}%"  
+  else:
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.Skript.updateavailable}
+   replace all "<version>" with "%{version}%" in {messageen.Skript.updateavailable}    
+   replace all "<latesversion>" with "%{latestversion}%" in {messageen.Skript.updateavailable}  
+   replace all "<latestversion>" with "%{latestversion}%" in {messageen.Skript.updateavailable}  
+   loop all players:
+    if loop-player has permission "MechanicMachines.see.info":
+     broadcast "&b&l%{messageen.Skript.updateavailable}%"    
+
+on load:
+ set {mechprefix} to "%yaml value ""options.Skript.prefix"" of file ""plugins/Mechanic Machines/config.yml""%"
+ if {mechanicsmachinelocale} is "cs" or "cz":
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.Skript.consoleload}  
+  replace all "<version>" with "%{version}%" in {messagecz.Skript.consoleload}    
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.Skript.broadcastload}  
+  replace all "<version>" with "%{version}%" in {messagecz.Skript.broadcastload} 
+  broadcast "%{messagecz.Skript.broadcastload}%"
+  send message "%{messagecz.Skript.consoleload}%" to console
+ else:
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.Skript.broadcastload}  
+  replace all "<version>" with "%{version}%" in {messageen.Skript.broadcastload}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.Skript.consoleload}  
+  replace all "<version>" with "%{version}%" in {messageen.Skript.consoleload}
+  broadcast "%{messageen.Skript.broadcastload}%"
+  send message "%{messageen.Skript.consoleload}%" to console
+ clear {dropss::*}
+ set {breakername} to "%yaml value ""options.breaker.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {breakerlore} to "%yaml value ""options.breaker.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {breakermaxblocks} to "%yaml value ""options.breaker.max_blocks_break"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {breakeruse} to "%yaml value ""options.breaker.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcuttername} to "%yaml value ""options.woodcutter.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterlore} to "%yaml value ""options.woodcutter.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcuttercooldownn} to "%yaml value ""options.woodcutter.check.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcuttercooldown} to {woodcuttercooldownn} parsed as number
+ set {woodcutterradiusplayerr} to "%yaml value ""options.woodcutter.radius.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterradiusplayer} to {woodcutterradiusplayerr} parsed as number
+ set {woodcutterradiusblockk} to "%yaml value ""options.woodcutter.radius.block"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterradiusblock} to {woodcutterradiusblockk} parsed as number
+ set {woodcutteruse} to "%yaml value ""options.woodcutter.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {automineruse} to "%yaml value ""options.autominer.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratorname} to "%yaml value ""options.foodgenerator.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratorlore} to "%yaml value ""options.foodgenerator.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratormaxblocks} to "%yaml value ""options.foodgenerator.max_food_drop"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratoruse} to "%yaml value ""options.foodgenerator.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratormaxblockss} to {foodgeneratormaxblocks} parsed as number
+ set {breakermaxblockss} to {breakermaxblocks} parsed as number
+ set {usewoodcutter} to "%yaml value ""options.woodcutter.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {mechprefix} to "%yaml value ""options.Skript.prefix"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.melon} to "%yaml value ""options.foodgenerator.drops.melon"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.fish} to "%yaml value ""options.foodgenerator.drops.fish"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.carrot} to "%yaml value ""options.foodgenerator.drops.carrot"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.potato} to "%yaml value ""options.foodgenerator.drops.potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.steak} to "%yaml value ""options.foodgenerator.drops.steak"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.gapple} to "%yaml value ""options.foodgenerator.drops.gapple"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.gapple2} to "%yaml value ""options.foodgenerator.drops.gapple:2"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.rabbit} to "%yaml value ""options.foodgenerator.drops.rabbit"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.porkchop} to "%yaml value ""options.foodgenerator.drops.porkchop"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.bread} to "%yaml value ""options.foodgenerator.drops.bread"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.baked_potato} to "%yaml value ""options.foodgenerator.drops.baked_potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.pumpkinpie} to "%yaml value ""options.foodgenerator.drops.pumpkin_pie"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.bread} to "%yaml value ""options.foodgenerator.drops.bread"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.baked_potato} to "%yaml value ""options.foodgenerator.drops.baked_potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.cooldown} to "%yaml value ""options.foodgenerator.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.chicken} to "%yaml value ""options.foodgenerator.drops.chicken"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.cake} to "%yaml value ""options.foodgenerator.drops.cake"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.mushroom_stew} to "%yaml value ""options.foodgenerator.drops.mushroom_stew"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgenerator.drop.rabbit_stew} to "%yaml value ""options.foodgenerator.drops.mushroom_stew"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {foodgeneratorcooldown} to {foodgenerator.cooldown} parsed as number
+ set {breakeruse} to "%yaml value ""options.breaker.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {autominername} to "%yaml value ""options.autominer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {autominerlore} to "%yaml value ""options.autominer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamername} to "%yaml value ""options.tamer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamerlore} to "%yaml value ""options.tamer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamercooldowns} to "%yaml value ""options.tamer.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamercooldown} to {tamercooldowns} parsed as number
+ set {tamerlore} to "%yaml value ""options.tamer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {autominerradiuss} to "%yaml value ""options.autominer.radius"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {autominerradius} to {autominerradius} parsed as number
+ set {usetamer} to "%yaml value ""options.tamer.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {messageen.breaker.break} to "%yaml value ""message_breaker_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.breaker.place} to "%yaml value ""message_breaker_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.breaker.gived} to "%yaml value ""message_breaker_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.breaker.givenoperms} to "%yaml value ""message_breaker_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.breaker.off} to "%yaml value ""message_breaker_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.breaker.on} to "%yaml value ""message_breaker_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.break} to "%yaml value ""message_foodgenerator_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.place} to "%yaml value ""message_foodgenerator_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.gived} to "%yaml value ""message_foodgenerator_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.givenoperms} to "%yaml value ""message_foodgenerator_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.off} to "%yaml value ""message_foodgenerator_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.foodgenerator.on} to "%yaml value ""message_foodgenerator_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.break} to "%yaml value ""message_tamer_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.place} to "%yaml value ""message_tamer_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.gived} to "%yaml value ""message_tamer_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.givenoperms} to "%yaml value ""message_tamer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.off} to "%yaml value ""message_tamer_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.tamer.on} to "%yaml value ""message_tamer_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.break} to "%yaml value ""message_autominer_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.place} to "%yaml value ""message_autominer_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.gived} to "%yaml value ""message_autominer_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.givenoperms} to "%yaml value ""message_autominer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.activated} to "%yaml value ""message_autominer_activated"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvage.was_set} to "%yaml value ""message_autominer_salvage_was_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.setsalvage} to "%yaml value ""message_autominer_set_salvage"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvagereseted} to "%yaml value ""message_autominer_salvage_reseted"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvage.resetnoperms} to "%yaml value ""message_autominer_reset_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvage.setnoperms} to "%yaml value ""message_autominer_set_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.Skript.broadcastload} to "%yaml value ""plugin_loaded_succesfully_broadcast"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.Skript.consoleload} to "%yaml value ""plugin_loaded_succesfully_console"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.Skript.updateavailable} to "%yaml value ""plugin_update_available"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.Skript.updatenotavailable} to "%yaml value ""plugin_update_not_available"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.yourversion} to "%yaml value ""plugin_your_version"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.latestversion} to "%yaml value ""plugin_latest_version"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.crystal.gived} to "%yaml value ""message_crystal_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.crystal.givenoperms} to "%yaml value ""message_crystal_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.reload.config} to "%yaml value ""plugin_reload_config"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.reload.lang} to "%yaml value ""plugin_reload_lang"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messagecz.breaker.break} to "%yaml value ""message_breaker_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.breaker.place} to "%yaml value ""message_breaker_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.breaker.gived} to "%yaml value ""message_breaker_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.breaker.givenoperms} to "%yaml value ""message_breaker_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.breaker.off} to "%yaml value ""message_breaker_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.breaker.on} to "%yaml value ""message_breaker_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.break} to "%yaml value ""message_foodgenerator_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.place} to "%yaml value ""message_foodgenerator_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.gived} to "%yaml value ""message_foodgenerator_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.givenoperms} to "%yaml value ""message_foodgenerator_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.off} to "%yaml value ""message_foodgenerator_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.foodgenerator.on} to "%yaml value ""message_foodgenerator_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.break} to "%yaml value ""message_tamer_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.place} to "%yaml value ""message_tamer_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.gived} to "%yaml value ""message_tamer_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.givenoperms} to "%yaml value ""message_tamer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.off} to "%yaml value ""message_tamer_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.tamer.on} to "%yaml value ""message_tamer_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.break} to "%yaml value ""message_autominer_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.place} to "%yaml value ""message_autominer_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.gived} to "%yaml value ""message_autominer_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.givenoperms} to "%yaml value ""message_autominer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.activated} to "%yaml value ""message_autominer_activated"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.salvage.was_set} to "%yaml value ""message_autominer_salvage_was_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.setsalvage} to "%yaml value ""message_autominer_set_salvage"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.salvagereseted} to "%yaml value ""message_autominer_salvage_reseted"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.salvage.resetnoperms} to "%yaml value ""message_autominer_reset_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.autominer.salvage.setnoperms} to "%yaml value ""message_autominer_set_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.Skript.broadcastload} to "%yaml value ""plugin_loaded_succesfully_broadcast"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.Skript.consoleload} to "%yaml value ""plugin_loaded_succesfully_console"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.Skript.updateavailable} to "%yaml value ""plugin_update_available"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.Skript.updatenotavailable} to "%yaml value ""plugin_update_not_available"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.yourversion} to "%yaml value ""plugin_your_version"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.latestversion} to "%yaml value ""plugin_latest_version"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.crystal.gived} to "%yaml value ""message_crystal_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.crystal.givenoperms} to "%yaml value ""message_crystal_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {mechanicsmachinelocale} to "%yaml value ""options.Skript.locale"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {messagecz.reload.config} to "%yaml value ""plugin_reload_config"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.reload.lang} to "%yaml value ""plugin_reload_lang"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messageen.reload.lang} to "%yaml value ""plugin_reload_lang"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messagecz.autominer.salvagealreadyset} to "%yaml value ""message_autominer_salvage_already_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messageen.autominer.salvagealreadyset} to "%yaml value ""message_autominer_salvage_already_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messagecz.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {tamermaxtimess} to "%yaml value ""options.tamer.maxtime"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamermaxtimes} to {tamermaxtimess} parsed as number
+ set {tamername} to "%yaml value ""options.tamer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamercooldownn} to "%yaml value ""options.tamer.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamercooldown} to {tamercooldownn} parsed as number
+ set {tamerradiuss} to "%yaml value ""options.tamer.radius"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamerradiuss} to {tamerradius} parsed as number
+ set {autominerradius} to {autominerradiuss} parsed as number
+ set {messagecz.error.reload} to "%yaml value ""plugin_error_reload"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messagecz.nomoney} to "%yaml value ""message_nomoney"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messageen.nomoney} to "%yaml value ""message_nomoney"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messagecz.itembought} to "%yaml value ""message_itembought"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+ set {messageen.itembought} to "%yaml value ""message_itembought"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {messageen.error.reload} to "%yaml value ""plugin_error_reload"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+ set {BreakerBreaklogall} to "%yaml value ""options.breaker.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {BreakerBreaklogplayer} to "%yaml value ""options.breaker.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {BreakerPlacelogall} to "%yaml value ""options.breaker.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {BreakerPlacelogplayer} to "%yaml value ""options.breaker.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterBreaklogall} to "%yaml value ""options.woodcutter.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterBreaklogplayer} to "%yaml value ""options.woodcutter.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterPlacelogall} to "%yaml value ""options.woodcutter.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {woodcutterPlacelogplayer} to "%yaml value ""options.woodcutter.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorBreaklogall} to "%yaml value ""options.foodgenerator.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorBreaklogplayer} to "%yaml value ""options.foodgenerator.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorPlacelogall} to "%yaml value ""options.foodgenerator.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorPlacelogplayer} to "%yaml value ""options.foodgenerator.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorBreaklogall} to "%yaml value ""options.foodgenerator.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorBreaklogplayer} to "%yaml value ""options.foodgenerator.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorPlacelogall} to "%yaml value ""options.foodgenerator.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {FoodGeneratorPlacelogplayer} to "%yaml value ""options.foodgenerator.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {AutoMinerBreaklogall} to "%yaml value ""options.autominer.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {AutoMinerBreaklogplayer} to "%yaml value ""options.autominer.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {AutoMinerPlacelogall} to "%yaml value ""options.autominer.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {AutoMinerPlacelogplayer} to "%yaml value ""options.autominer.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {TamerBreaklogall} to "%yaml value ""options.tamer.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {TamerBreaklogplayer} to "%yaml value ""options.tamer.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamerplacelogall} to "%yaml value ""options.tamer.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {tamerplacelogplayer} to "%yaml value ""options.tamer.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+ set {mechanicshopname} to "%yaml value ""shopname"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopenabled} to "%yaml value ""enabled"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopcommand} to "%yaml value ""command"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopperms} to "%yaml value ""permission"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopitem1} to "%yaml value ""1.item"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopname1} to "%yaml value ""1.name"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoppricee1} to "%yaml value ""1.price"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopprice1} to {mechanicshoppricee1} parsed as number
+ set {mechanicshopprice2} to {mechanicshoppricee2} parsed as number
+ set {mechanicshopprice3} to {mechanicshoppricee3} parsed as number
+ set {mechanicshopprice4} to {mechanicshoppricee4} parsed as number
+ set {mechanicshopprice5} to {mechanicshoppricee5} parsed as number
+ set {mechanicshopamount1} to "%yaml value ""1.amount"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopitem2} to "%yaml value ""2.item"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopname2} to "%yaml value ""2.name"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoppricee2} to "%yaml value ""2.price"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopprice2} to {mechanicshoppricee2} parsed as number
+ set {mechanicshopamount2} to "%yaml value ""2.amount"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopitem3} to "%yaml value ""3.item"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopname3} to "%yaml value ""3.name"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoppricee3} to "%yaml value ""3.price"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopprice3} to {mechanicshoppricee3} parsed as number
+ set {mechanicshopamount3} to "%yaml value ""3.amount"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopitem4} to "%yaml value ""4.item"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopname4} to "%yaml value ""4.name"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopname5} to "%yaml value ""5.name"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoppricee4} to "%yaml value ""4.price"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoppricee5} to "%yaml value ""5.price"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitemm1} to "%yaml value ""1.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitemm2} to "%yaml value ""2.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitemm3} to "%yaml value ""3.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitemm4} to "%yaml value ""4.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitemm5} to "%yaml value ""5.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopprice4} to {mechanicshoppricee4} parsed as number
+ set {mechanicshopamount4} to "%yaml value ""4.amount"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopmenitem1} to {mechanicshopmenitemm1} parsed as material
+ set {mechanicshopmenitem2} to {mechanicshopmenitemm2} parsed as material
+ set {mechanicshopmenitem3} to {mechanicshopmenitemm3} parsed as material
+ set {mechanicshopmenitem4} to {mechanicshopmenitemm4} parsed as material
+ set {mechanicshoplore4} to "%yaml value ""4.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoplore3} to "%yaml value ""3.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoplore2} to "%yaml value ""2.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoplore1} to "%yaml value ""1.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshoplore5} to "%yaml value ""5.lore"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ set {mechanicshopenabled} to "%yaml value ""enabled"" of file ""plugins/Mechanic Machines/shop.yml""%"
+ if {foodgenerator.drop.fish} is not "true":
+  remove 350 from {dropss::*}
+ if {foodgenerator.drop.gapple} is not "true":
+  remove 322 from {dropss::*}
+ if {foodgenerator.drop.gapple2} is not "true":
+  remove enchanted golden apple from {dropss::*}
+ if {foodgenerator.drop.potato} is not "true":
+  remove 392 from {dropss::*}
+ if {foodgenerator.drop.rabbit} is not "true":
+  remove 412 from {dropss::*}
+ if {foodgenerator.drop.bread} is not "true":
+  remove 297 from {dropss::*}
+ if {foodgenerator.drop.steak} is not "true":
+  remove 364 from {dropss::*}
+ if {foodgenerator.drop.chicken} is not "true":
+  remove 366 from {dropss::*}
+ if {foodgenerator.drop.baked_potato} is not "true":
+  remove 393 from {dropss::*}
+ if {foodgenerator.drop.pumpkinpie} is not "true":
+  remove 400 from {dropss::*}
+ if {foodgenerator.drop.rabbit_stew} is not "true":
+  remove "413" from {dropss::*}
+ if {foodgenerator.drop.cake} is not "true":
+  remove "354" from {dropss::*}
+ if {foodgenerator.drop.mushroom_stew} is not "true":
+  remove "282" from {dropss::*}
+ if {foodgenerator.drop.gapple2} is "true":
+  add "enchanted golden apple" parsed as material to {dropss::*}
+ if {foodgenerator.drop.potato} is "true":
+  add "392" parsed as material to {dropss::*}
+ if {foodgenerator.drop.rabbit} is "true":
+  add "412" parsed as material to {dropss::*}
+ if {foodgenerator.drop.bread} is "true":
+  add "297" parsed as material to {dropss::*}
+ if {foodgenerator.drop.steak} is "true":
+  add "364" parsed as material to {dropss::*}
+ if {foodgenerator.drop.chicken} is "true":
+  add "366" parsed as material to {dropss::*}
+ if {foodgenerator.drop.baked_potato} is "true":
+  add "393" parsed as material to {dropss::*}
+ if {foodgenerator.drop.pumpkinpie} is "true":
+  add "400" parsed as material to {dropss::*}
+ if {foodgenerator.drop.melon} is "true":
+  add "360" parsed as material to {dropss::*} 
+ if {foodgenerator.drop.rabbit_stew} is "true":
+  add "413" to {dropss::*}
+ if {foodgenerator.drop.cake} is "true":
+  add "354" to {dropss::*}
+ if {foodgenerator.drop.mushroom_stew} is "true":
+  add "282" to {dropss::*}
+ if {mechanicshopitem2} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM2 CAN NOT BE  %{mechanicshopitem2}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem1} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM1 CAN NOT BE  %{mechanicshopitem1}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem3} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM3 CAN NOT BE  %{mechanicshopitem3}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem4} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM4 CAN NOT BE  %{mechanicshopitem4}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+
+
+every minute:
+ if {mechanicshopitem4} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM4 CAN NOT BE  %{mechanicshopitem4}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem3} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM3 CAN NOT BE  %{mechanicshopitem3}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem4} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM4 CAN NOT BE  %{mechanicshopitem4}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+ if {mechanicshopitem1} is not "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+  send message "&0&l[&6&lMechanic Machines&0&l][FATAL]&C&lWARNING!! YOU HAVE AN ERROR IN CONFIGURATION FILE OF SHOP - ITEM1 CAN NOT BE  %{mechanicshopitem1}%! CHECK SPIGOT PAGE TO FIND SOLUTION!!" to console
+command /givebb [<player>]:
+        trigger:
+                if player has permission "MechanicMachines.give.breaker":
+                        if {mechanicsmachinelocale} is "cz" or "cs":
+                                replace all "<breakername>" with "%{breakername}%" in {messagecz.breaker.gived}
+                                replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.gived}
+                                send message "%{messagecz.breaker.gived}%"
+                                execute console command "give %player% 23 1 name:%{breakername}% lore:%{breakerlore}%"
+                        else:
+                                replace all "<breakername>" with "%{breakername}%" in {messageen.breaker.gived}
+                                replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.gived}
+                                send message "%{messageen.breaker.gived}%"
+                                execute console command "give %player% 23 1 name:%{breakername}% lore:%{breakerlore}%"
+                else:
+                        if {mechanicsmachinelocale} is "cz" or "cs":
+                                replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.breaker.givenoperms}
+                                replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.givenoperms}
+                                send message "%{messagecz.breaker.givenoperms}%"
+                        else:
+                                replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.breaker.givenoperms}
+                                replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.givenoperms}
+                                send message "%{messageen.breaker.givenoperms}%"
+
+on rightclick on dispenser:
+ {breakeruse} is "true"
+ {bb.%location of clicked block%} is true
+ cancel the event 
+ if {bbon.%location of block%} is true:
+  if {mechanicsmachinelocale} is "cs" or "cz":
+   replace all "<breakername>" with "%{breakername}%" in {messagecz.breaker.off}
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.off}
+   send message "%{messagecz.breaker.off}%" to player
+  else:
+   replace all "<breakername>" with "%{breakername}%" in {messageen.breaker.off}
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.off}
+   send message "%{messageen.breaker.off}%" to player
+  set {bbon.%location of block%} to false
+ else:
+  set {bbon.%location of block%} to true
+  if {mechanicsmachinelocale} is "cs" or "cz":
+   replace all "<breakername>" with "%{breakername}%" in {messagecz.breaker.on}
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.on}
+   send message "%{messagecz.breaker.on}%" to player
+  else:
+   replace all "<breakername>" with "%{breakername}%" in {messageen.breaker.on}
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.on}
+   send message "%{messageen.breaker.on}%" to player
+  if block over the clicked block is chest:
+   if {bbon.%location of clicked block%} is true:
+    loop 1 times:
+     loop {breakermaxblockss} times:
+      if {bbon.%location of clicked block%} is true:
+       wait 2 seconds
+       clicked block is set
+       add block under the clicked block to inventory of block over clicked block
+       set block under the clicked block to air
+      else:
+       exit loop
+variables:
+ {bb.%block%} = false
+ 
+on break a dispenser:
+ {breakeruse} is "true"
+ {bb.%location of block%} is true
+ if {mechanicsmachinelocale} is "cs" or "cz":
+  replace all "<breakername>" with "%{breakername}%" in {messagecz.breaker.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.break}
+  send message "%{messagecz.breaker.break}%" to player
+ else:
+  replace all "<breakername>" with "%{breakername}%" in {messageen.breaker.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.break}
+  send message "%{messageen.breaker.break}%" to player
+ cancel the event
+ set event-block to air
+ execute console command "give %player% 23 1 name:%{breakername}% lore:%{breakerlore}%"
+ set {bb.%location of block%} to false
+ set {bbon.%location of block%} to false
+ if {BreakerBreaklogall} is "true":
+  if "plugins/Mechanic Machines/logs/Breaker/Break/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+   write "[%now%] %player% broke Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+  else:
+   write "[%now%] %player% broke Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+ if {BreakerBreaklogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Breaker/Break/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Breaker/Break/Players/%player%.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Break/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Break/Players/%player%.txt"
+ 
+on break iron block:
+ {woodcutteruse} is "true"
+ {woodcutter.%location of block%} is true
+ if {mechanicsmachinelocale} is "cs" or "cz":
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.break}
+  send message "%{messagecz.woodcutter.break}%" to player
+ else:
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.break}
+  send message "%{messageen.woodcutter.break}%" to player
+ cancel the event
+ set event-block to air
+ execute console command "give %player% 23 1 name:%{woodcuttername}% lore:%{woodcutterlore}%"
+ set {bb.%location of block%} to false
+ set {bbon.%location of block%} to false
+ if {woodcutterBreaklogall} is "true":
+  if file "plugins/Mechanic Machines/logs/woodcutter/Break/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/woodcutter/Break/all.txt"
+   write "[%now%] %player% broke woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Break/all.txt"
+  else:
+   write "[%now%] %player% broke woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Break/all.txt"
+ if {woodcutterBreaklogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/woodcutter/Break/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/woodcutter/Break/Players/%player%.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Break/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Break/all.txt"
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Break/Players/%player%.txt"
+ 
+on place dispenser:
+ {breakeruse} is "true"
+ name of player's tool is "%{breakername}%"
+ if {mechanicsmachinelocale} is "cz" or "cs":
+  replace all "<breakername>" with "%{breakername}%" in {messagecz.breaker.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.breaker.place}
+  send message "%{messagecz.breaker.place}%" to player
+ else:
+  replace all "<breakername>" with "%{breakername}%" in {messageen.breaker.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.breaker.place}
+  send message "%{messageen.breaker.place}%" to player
+ set {bbon.%location of block%} to false
+ set {bb.%location of block%} to true
+ if {BreakerPlacelogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Place/all.txt"
+ if {BreakerPlacelogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt"
+   write "[%now%] %player% placed Breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Breaker/Place/Players/%player%.txt"
+ 
+on place emerald block:
+ name of tool of player is "%{foodgeneratorname}%"
+ if {mechanicsmachinelocale} is "cz" or "cs":
+  replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.foodgenerator.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.place}
+  send message "%{messagecz.foodgenerator.place}%"
+ else:
+  replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.place}
+  send message "%{messageen.foodgenerator.place}%"
+ set {fgon.%location of block%} to false
+ set {fg.%location of block%} to true
+ if {FoodGeneratorBreaklogall} is "true":
+  if file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt"
+   write "[%now%] %player% placed FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt"
+   write "[%now%] %player% placed FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Place/all.txt"
+ if {FoodGeneratorPlacelogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/FoodGenerator/Place/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/FoodGenerator/Place/Players/%player%.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Place/Players/%player%.txt"
+   write "[%now%] %player% placed FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Place/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Place/Players/%player%.txt"
+   write "[%now%] %player% placed FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic   Machines/logs/FoodGenerator/Place/Players/%player%.txt"
+ 
+on rightclick on emerald block:
+ if {fg.%location of block%} is true:
+  if {fgon.%location of block%} is false:
+   cancel the event 
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.on}
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.foodgenerator.on}
+    send message "%{messagecz.foodgenerator.on}%" to player
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.on}
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.on}
+    send message "%{messageen.foodgenerator.on}%" to player
+   set {fgon.%location of block%} to true 
+   loop {foodgeneratormaxblockss} times:
+    {fgon.%location of block%} is true 
+    chance of 25%:
+     {fgon.%location of block%} is true 
+     drop random element out of {dropss::*} at event-block
+     loop {foodgeneratorcooldown} times:
+      wait a seconds
+    chance of 25%:
+     {fgon.%location of block%} is true 
+     drop random element out of {dropss::*} left of event-block
+     loop {foodgeneratorcooldown} times:
+     loop {foodgeneratorcooldown} times:
+      wait a seconds
+    chance of 25%:
+     {fgon.%location of block%} is true 
+     drop random element out of {dropss::*} right of event-block
+     loop {foodgeneratorcooldown} times:
+      wait a seconds
+    else:
+     {fgon.%location of block%} is true 
+     drop random element out of {dropss::*} behind the block over the block behind the event-block
+     loop {foodgeneratorcooldown} times:
+      wait a seconds 
+  else:
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.off}
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.off}
+    send message "%{messageen.foodgenerator.off}%" to player
+    set {fgon.%location of block%} to false
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.off}
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.off}
+    send message "%{messageen.foodgenerator.off}%" to player
+    set {fgon.%location of block%} to false
+    
+ 
+
+on break emerald block:
+ {foodgeneratoruse} is "true"
+ {fg.%location of block%} is true
+ set {fg.%location of block%} to false 
+ set {fgon.%location of block%} to false
+ set the block to air 
+ cancel the event 
+ execute console command "give %player% 133 1 name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+ if {mechanicsmachinelocale} is "cz" or "cs":
+  replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.foodgenerator.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.break}
+  send message "%{messagecz.foodgenerator.break}%" to player
+ else:
+  replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.break}
+  send message " %{messageen.foodgenerator.break}%" to player
+ if {FoodGeneratorBreaklogall} is "true":
+  if file "plugins/Mechanic Machines/logs/FoodGenerator/Break/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/FoodGenerator/Break/all.txt"
+   write "[%now%] %player% broke FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Break/all.txt"
+  else:
+   write "[%now%] %player% broke FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Break/all.txt"
+ if {FoodGeneratorBreaklogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt"
+   write "[%now%] %player% broke FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt"
+   write "[%now%] %player% broke FoodGenerator at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/FoodGenerator/Break/Players/%player%.txt"
+
+command /givefg [<player>]:
+ trigger:
+  if player has permission "MechanicMachines.give.foodgenerator":
+   if {mechanicsmachinelocale} is "cz" or "cs":
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.foodgenerator.gived}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.gived}
+    send message "%{messagecz.foodgenerator.gived}%" to player
+    execute console command "give %player% 133 1 name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+   else:
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.gived}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.gived}
+    send message "%{messageen.foodgenerator.gived}%" to player  
+    execute console command "give %player% 133 1 name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+  else:
+   if {mechanicsmachinelocale} is "cz" or "cs":
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messagecz.foodgenerator.givenoperms}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.foodgenerator.givenoperms}
+    send message "%{messagecz.foodgenerator.givenoperms}%"
+   else:
+    replace all "<foodgeneratorname>" with "%{foodgeneratorname}%" in {messageen.foodgenerator.givenoperms}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.foodgenerator.givenoperms}
+    send message "%{messageen.foodgenerator.givenoperms}%"
+ 
+   
+
+  
+command /givemb [<player>]:
+ permission: MechanicMachines.give.mobkiller
+ trigger:
+  send message "&4&lThis Mechanic is temporary disabled, used it is for own risk! Wait for new version!"
+  
+command /mechanicsmachines [<text>] [<text>]:
+ permission: MechanicMachnies.reload
+ aliases: mm, mma, mem, mema
+ trigger:
+  if argument-text-1 is "reload":
+   if argument-text-2 is "config":
+    clear {dropss::*}
+    set {breakername} to "%yaml value ""options.breaker.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {breakerlore} to "%yaml value ""options.breaker.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {breakermaxblocks} to "%yaml value ""options.breaker.max_blocks_break"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {breakeruse} to "%yaml value ""options.breaker.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {automineruse} to "%yaml value ""options.autominer.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratorname} to "%yaml value ""options.foodgenerator.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratorlore} to "%yaml value ""options.foodgenerator.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratormaxblocks} to "%yaml value ""options.foodgenerator.max_food_drop"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratoruse} to "%yaml value ""options.foodgenerator.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratormaxblockss} to {foodgeneratormaxblocks} parsed as number
+    set {foodgeneratortoinv} to "%yaml value ""options.foodgenerator.on_break_back_to_inventory"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {breakermaxblockss} to {breakermaxblocks} parsed as number
+    set {mechprefix} to "%yaml value ""options.Skript.prefix"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.melon} to "%yaml value ""options.foodgenerator.drops.melon"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.fish} to "%yaml value ""options.foodgenerator.drops.fish"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.carrot} to "%yaml value ""options.foodgenerator.drops.carrot"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.potato} to "%yaml value ""options.foodgenerator.drops.potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.steak} to "%yaml value ""options.foodgenerator.drops.steak"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.gapple} to "%yaml value ""options.foodgenerator.drops.gapple"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.gapple2} to "%yaml value ""options.foodgenerator.drops.gapple:2"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.rabbit} to "%yaml value ""options.foodgenerator.drops.rabbit"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.porkchop} to "%yaml value ""options.foodgenerator.drops.porkchop"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.bread} to "%yaml value ""options.foodgenerator.drops.bread"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.baked_potato} to "%yaml value ""options.foodgenerator.drops.baked_potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.pumpkinpie} to "%yaml value ""options.foodgenerator.drops.pumpkin_pie"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.bread} to "%yaml value ""options.foodgenerator.drops.bread"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.baked_potato} to "%yaml value ""options.foodgenerator.drops.baked_potato"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.cooldown} to "%yaml value ""options.foodgenerator.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.chicken} to "%yaml value ""options.foodgenerator.drops.chicken"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.cake} to "%yaml value ""options.foodgenerator.drops.cake"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.mushroom_stew} to "%yaml value ""options.foodgenerator.drops.mushroom_stew"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgenerator.drop.rabbit_stew} to "%yaml value ""options.foodgenerator.drops.mushroom_stew"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {foodgeneratorcooldown} to {foodgenerator.cooldown} parsed as number
+    set {breakeruse} to "%yaml value ""options.breaker.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {autominername} to "%yaml value ""options.autominer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {autominercooldowns} to "%yaml value ""options.autominer.check.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {autominercooldown} to {autominercooldowns} parsed as number
+    set {autominerlore} to "%yaml value ""options.autominer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamername} to "%yaml value ""options.tamer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamerlore} to "%yaml value ""options.tamer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamercooldowns} to "%yaml value ""options.tamer.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamercooldown} to {tamercooldowns} parsed as number
+    set {tamerlore} to "%yaml value ""options.tamer.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {usetamer} to "%yaml value ""options.tamer.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamermaxtimess} to "%yaml value ""options.tamer.maxtime"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamermaxtimes} to {tamermaxtimess} parsed as number
+    set {tamername} to "%yaml value ""options.tamer.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamercooldownn} to "%yaml value ""options.tamer.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamercooldown} to {tamercooldownn} parsed as number
+    set {tamerradiuss} to "%yaml value ""options.tamer.radius"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamerradiuss} to {tamerradius} parsed as number
+    set {autominerradiuss} to "%yaml value ""options.autominer.radius"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {autominerradius} to {autominerradius} parsed as number
+    set {BreakerBreaklogall} to "%yaml value ""options.breaker.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {BreakerBreaklogplayer} to "%yaml value ""options.breaker.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {BreakerPlacelogall} to "%yaml value ""options.breaker.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {BreakerPlacelogplayer} to "%yaml value ""options.breaker.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorBreaklogall} to "%yaml value ""options.foodgenerator.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorBreaklogplayer} to "%yaml value ""options.foodgenerator.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorPlacelogall} to "%yaml value ""options.foodgenerator.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorPlacelogplayer} to "%yaml value ""options.foodgenerator.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorBreaklogall} to "%yaml value ""options.foodgenerator.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorBreaklogplayer} to "%yaml value ""options.foodgenerator.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorPlacelogall} to "%yaml value ""options.foodgenerator.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {FoodGeneratorPlacelogplayer} to "%yaml value ""options.foodgenerator.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {AutoMinerBreaklogall} to "%yaml value ""options.autominer.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {AutoMinerBreaklogplayer} to "%yaml value ""options.autominer.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {AutoMinerPlacelogall} to "%yaml value ""options.autominer.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {AutoMinerPlacelogplayer} to "%yaml value ""options.autominer.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {TamerBreaklogall} to "%yaml value ""options.tamer.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {TamerBreaklogplayer} to "%yaml value ""options.tamer.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamerplacelogall} to "%yaml value ""options.tamer.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {tamerplacelogplayer} to "%yaml value ""options.tamer.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcuttername} to "%yaml value ""options.woodcutter.name"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterlore} to "%yaml value ""options.woodcutter.lore"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcuttercooldownn} to "%yaml value ""options.woodcutter.check.cooldown"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcuttercooldown} to {woodcuttercooldownn} parsed as number
+    set {woodcutterradiusplayerr} to "%yaml value ""options.woodcutter.radius.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterradiusplayer} to {woodcutterradiusplayerr} parsed as number
+    set {woodcutterradiusblockk} to "%yaml value ""options.woodcutter.radius.block"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterradiusblock} to {woodcutterradiusblockk} parsed as number
+    set {woodcutteruse} to "%yaml value ""options.woodcutter.use"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {mechanicsmachinelocale} to "%yaml value ""options.Skript.locale"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterBreaklogall} to "%yaml value ""options.woodcutter.log.Break.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterBreaklogplayer} to "%yaml value ""options.woodcutter.log.Break.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterPlacelogall} to "%yaml value ""options.woodcutter.log.Place.all"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {woodcutterPlacelogplayer} to "%yaml value ""options.woodcutter.log.Place.player"" of file ""plugins/Mechanic Machines/config.yml""%"
+    set {version} to "%yaml value ""options.Skript.version"" of file ""plugins/Mechanic Machines/config.yml""%"
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.reload.config}
+     send message "%{messagecz.reload.config}%"
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.reload.config}
+     send message "%{messageen.reload.config}%"
+   if argument-text-2 is "locales":
+    set {messageen.breaker.break} to "%yaml value ""message_breaker_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.breaker.place} to "%yaml value ""message_breaker_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.breaker.gived} to "%yaml value ""message_breaker_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.breaker.givenoperms} to "%yaml value ""message_breaker_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.breaker.off} to "%yaml value ""message_breaker_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.breaker.on} to "%yaml value ""message_breaker_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.break} to "%yaml value ""message_woodcutter_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.place} to "%yaml value ""message_woodcutter_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.gived} to "%yaml value ""message_woodcutter_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.givenoperms} to "%yaml value ""message_woodcutter_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.off} to "%yaml value ""message_woodcutter_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.on} to "%yaml value ""message_woodcutter_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.break} to "%yaml value ""message_foodgenerator_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.place} to "%yaml value ""message_foodgenerator_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.gived} to "%yaml value ""message_foodgenerator_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.givenoperms} to "%yaml value ""message_foodgenerator_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.off} to "%yaml value ""message_foodgenerator_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.foodgenerator.on} to "%yaml value ""message_foodgenerator_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.break} to "%yaml value ""message_tamer_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.place} to "%yaml value ""message_tamer_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.gived} to "%yaml value ""message_tamer_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.givenoperms} to "%yaml value ""message_tamer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.off} to "%yaml value ""message_tamer_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.tamer.on} to "%yaml value ""message_tamer_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.break} to "%yaml value ""message_autominer_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.place} to "%yaml value ""message_autominer_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.gived} to "%yaml value ""message_autominer_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.givenoperms} to "%yaml value ""message_autominer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.activated} to "%yaml value ""message_autominer_activated"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.salvage.was_set} to "%yaml value ""message_autominer_salvage_was_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.setsalvage} to "%yaml value ""message_autominer_set_salvage"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.salvagereseted} to "%yaml value ""message_autominer_salvage_reseted"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.salvage.resetnoperms} to "%yaml value ""message_autominer_reset_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.autominer.salvage.setnoperms} to "%yaml value ""message_autominer_set_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.Skript.broadcastload} to "%yaml value ""plugin_loaded_succesfully_broadcast"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.reload.lang} to "%yaml value ""plugin_reload_lang"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.Skript.consoleload} to "%yaml value ""plugin_loaded_succesfully_console"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.Skript.updateavailable} to "%yaml value ""plugin_update_available"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.Skript.updatenotavailable} to "%yaml value ""plugin_update_not_available"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.yourversion} to "%yaml value ""plugin_your_version"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.latestversion} to "%yaml value ""plugin_latest_version"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.crystal.gived} to "%yaml value ""message_crystal_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.crystal.givenoperms} to "%yaml value ""message_crystal_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messagecz.reload.config} to "%yaml value ""plugin_reload_config"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messageen.reload.config} to "%yaml value ""plugin_reload_config"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.reload.lang} to "%yaml value ""plugin.reload.lang"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messagecz.breaker.break} to "%yaml value ""message_breaker_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.breaker.place} to "%yaml value ""message_breaker_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.breaker.gived} to "%yaml value ""message_breaker_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.breaker.givenoperms} to "%yaml value ""message_breaker_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.breaker.off} to "%yaml value ""message_breaker_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.breaker.on} to "%yaml value ""message_breaker_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.break} to "%yaml value ""message_woodcutter_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.place} to "%yaml value ""message_woodcutter_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.gived} to "%yaml value ""message_woodcutter_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.givenoperms} to "%yaml value ""message_woodcutter_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.off} to "%yaml value ""message_woodcutter_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.on} to "%yaml value ""message_woodcutter_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.break} to "%yaml value ""message_foodgenerator_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.place} to "%yaml value ""message_foodgenerator_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.gived} to "%yaml value ""message_foodgenerator_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.givenoperms} to "%yaml value ""message_foodgenerator_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.off} to "%yaml value ""message_foodgenerator_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.foodgenerator.on} to "%yaml value ""message_foodgenerator_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.break} to "%yaml value ""message_tamer_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.place} to "%yaml value ""message_tamer_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.gived} to "%yaml value ""message_tamer_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.givenoperms} to "%yaml value ""message_tamer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.off} to "%yaml value ""message_tamer_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.tamer.on} to "%yaml value ""message_tamer_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.break} to "%yaml value ""message_autominer_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.place} to "%yaml value ""message_autominer_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.gived} to "%yaml value ""message_autominer_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.givenoperms} to "%yaml value ""message_autominer_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.activated} to "%yaml value ""message_autominer_activated"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.salvage.was_set} to "%yaml value ""message_autominer_salvage_was_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.setsalvage} to "%yaml value ""message_autominer_set_salvage"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.salvagereseted} to "%yaml value ""message_autominer_salvage_reseted"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.salvage.resetnoperms} to "%yaml value ""message_autominer_reset_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.autominer.salvage.setnoperms} to "%yaml value ""message_autominer_set_salvage_no_perms"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.Skript.broadcastload} to "%yaml value ""plugin_loaded_succesfully_broadcast"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.Skript.consoleload} to "%yaml value ""plugin_loaded_succesfully_console"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.Skript.updateavailable} to "%yaml value ""plugin_update_available"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.Skript.updatenotavailable} to "%yaml value ""plugin_update_not_available"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.yourversion} to "%yaml value ""plugin_your_version"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.latestversion} to "%yaml value ""plugin_latest_version"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.crystal.gived} to "%yaml value ""message_crystal_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.crystal.givenoperms} to "%yaml value ""message_crystal_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.reload.config} to "%yaml value ""plugin_reload_config"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.reload.lang} to "%yaml value ""plugin_reload_lang"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messageen.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messagecz.autominer.salvagealreadyset} to "%yaml value ""message_autominer_salvage_already_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messageen.autominer.salvagealreadyset} to "%yaml value ""message_autominer_salvage_already_set"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messagecz.autominer.salvagenotset} to "%yaml value ""message_autominer_salvage_not_set"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.error.reload} to "%yaml value ""plugin_error_reload"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messageen.error.reload} to "%yaml value ""plugin_error_reload"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messagecz.woodcutter.break} to "%yaml value ""message_woodcutter_break"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.place} to "%yaml value ""message_woodcutter_placed"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.gived} to "%yaml value ""message_woodcutter_gived"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.givenoperms} to "%yaml value ""message_woodcutter_give_not_permission"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.off} to "%yaml value ""message_woodcutter_off"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messagecz.woodcutter.on} to "%yaml value ""message_woodcutter_on"" of file ""plugins/Mechanic Machines/locale/cz.yml""%"
+    set {messageen.woodcutter.break} to "%yaml value ""message_woodcutter_break"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.place} to "%yaml value ""message_woodcutter_placed"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.gived} to "%yaml value ""message_woodcutter_gived"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.givenoperms} to "%yaml value ""message_woodcutter_give_not_permission"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.off} to "%yaml value ""message_woodcutter_off"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    set {messageen.woodcutter.on} to "%yaml value ""message_woodcutter_on"" of file ""plugins/Mechanic Machines/locale/en.yml""%"
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.reload.lang}
+     send message "%{messagecz.reload.lang}%"
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.reload.lang}
+     send message "%{messageen.reload.lang}%"
+   if argument-text-2 is not set:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.reload.lang}
+     send message "%{messagecz.reload.lang}%"
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.reload.lang}
+     send message "%{messageen.reload.lang}%"
+   if argument-text-2 is not set:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.error.reload}
+     send message "%{messagecz.error.reload}%"
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.error.reload}
+     send message "%{messageen.error.reload}%"
+  if argument-text-1 is "version":
+   if player has permission "MechanicMachines.see.version":
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     delete {newcz1}
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.latestversion}
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.yourversion}
+     replace all "<version>" with "%{version}%" in {messagecz.yourversion}
+     send message "%{messagecz.latestversion}%: %{latestversion}%"
+     send message "%{messagecz.yourversion}%: %{version}%"
+     delete {newcz2}
+     delete {newcz3}
+     delete {newcz4}
+     delete {newcz5}
+     delete {newcz6}
+     delete {newcz7}
+     delete {newcz8}
+     download file from "http://Mechanics.9e.cz/inupdatecz-%{latestversion}%.yml" to file "plugins/Mechanic Machines/updates/newscz.yml"
+     set {newcz1} to "%yaml value ""new1"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz2} to "%yaml value ""new2"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz3} to "%yaml value ""new3"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz4} to "%yaml value ""new4"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz5} to "%yaml value ""new5"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz6} to "%yaml value ""new6"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz7} to "%yaml value ""new7"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%"
+     set {newcz8} to "%yaml value ""new8"" of file ""plugins/Mechanic Machines/updates/newscz.yml""%" 
+     if {newcz1} is set:	 
+     send message " &b&l-%{newcz1}%"
+     if {newcz2} is set:	
+      send message " &b&l-%{newcz2}%"
+     if {newcz3} is set:	 
+      send message " &b&l-%{newcz3}%"
+     if {newcz4} is set:	
+      send message " &b&l-%{newcz4}%"
+     if {newcz5} is set:	 
+      send message " &b&l-%{newcz5}%"
+     if {newcz6} is set:	
+      send message " &b&l-%{newcz6}%"
+     if {newcz7} is set:	 
+      send message " &b&l-%{newcz7}%"
+     if {newcz8} is set:	
+      send message " &b&l-%{newcz8}%"
+    else:
+     delete {newen1}
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.latestversion}
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.yourversion}
+     replace all "<version>" with "%{version}%" in {messageen.yourversion}
+     send message "%{messageen.latestversion}%: %{latestversion}%"
+     send message "%{messageen.yourversion}%: %{version}%"
+     delete {newen2}
+     delete {newen3}
+     delete {newen4}
+     delete {newen5}
+     delete {newen6}
+     delete {newen7}
+     delete {newen8}
+     delete file "plugins/Mechanic Machines/updates/newsen.yml"
+     download file from "http://Mechanics.9e.cz/inupdateen-%{latestversion}%.yml" to file "plugins/Mechanic Machines/updates/newsen.yml"
+     set {newen1} to "%yaml value ""new1"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen2} to "%yaml value ""new2"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen3} to "%yaml value ""new3"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen4} to "%yaml value ""new4"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen5} to "%yaml value ""new5"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen6} to "%yaml value ""new6"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen7} to "%yaml value ""new7"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     set {newen8} to "%yaml value ""new8"" of file ""plugins/Mechanic Machines/updates/newsen.yml""%"
+     if {newen1} is set:	 
+      send message "&b&l-%{newen1}%"
+     if {newen2} is set:	
+      send message "&b&l-%{newen2}%"
+     if {newen3} is set:	 
+      send message "&b&l-%{newen3}%"
+     if {newen4} is set:	
+      send message "&b&l-%{newen4}%"
+     if {newen5} is set:	 
+      send message "&b&l-%{newen5}%"
+     if {newen6} is set:	
+      send message "&b&l-%{newen6}%"
+     if {newen7} is set:	 
+      send message "&b&l-%{newen7}%"
+     if {newen8} is set:	
+      send message "&b&l-%{newen8}%"  
+
+command /giveautominer [<player>]:
+ trigger: 
+  if player has permissions "MechanicMachines.give.autominer":
+   if {mechanicsmachinelocale} is "cz" or "cs":
+    replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.gived}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.gived}
+    send message "%{messagecz.autominer.gived}%" to player
+    execute console command "give %player% dispenser 1 name:%{autominername}% lore:%{autominerlore}%"
+   else:
+    replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.gived}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.gived}
+    send message "%{messageen.autominer.gived}%" to player  
+    execute console command "give %player% dispenser 1 name:%{autominername}% lore:%{autominerlore}%"
+  else:
+   if {mechanicsmachinelocale} is "cz" or "cs":
+    replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.givenoperms}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.givenoperms}
+    send message "%{messagecz.autominer.givenoperms}%"
+   else:
+    replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.givenoperms}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.givenoperms}
+    send message "%{messageen.autominer.givenoperms}%"
+
+  
+on place dispenser:
+ {automineruse} is "true"
+ name of player's tool is "%{autominername}%"
+ set {autominer.%location of block%} to true
+ if {mechanicsmachinelocale} is "cz" or "cs":
+  replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.place}
+  send message "%{messagecz.autominer.place}%" to player
+ else:
+  replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.place}
+  send message "%{messageen.autominer.place}%" to player
+ set {autominer.%location of block%} to true
+ if {autominerPlacelogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Place/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Autominer/Place/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Place/all.txt"
+   write "[%now%] %player% placed Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Place/all.txt"
+ if {autominerPlacelogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Place/Players/%player%.txt" doesn't exist:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Place/Players/%player%.txt"
+   create file "plugins/Mechanic Machines/logs/Autominer/Place/Players/%player%.txt"
+   write "[%now%] %player% placed Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Place/Players/%player%.txt"
+ 
+on rightclick on dispenser:
+ {automineruse} is "true"
+ if {autominer.%location of clicked block%} is true:
+  if {locationfo.%player%} is set:
+   cancel the event
+   loop blocks in radius {autominerradius} around the clicked block:
+    if loop-block is any ore:
+     add loop-block to inventory of block at {locationfo.%player%}
+     set loop-block to air
+     set {autominerlastlocale} to location of block 
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.activated}
+    replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.activated}
+    send message "%{messagecz.autominer.activated}%"
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.activated}
+    replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.activated}
+    send message "%{messageen.autominer.activated}%"   
+  else:
+   send message "%{messageen.autominer.salvagenotset}%"
+  
+	
+   
+command /autominer [<text>] [<text>]:
+ trigger:
+  if argument-text-1 is "set":
+   if argument-text-2 is "salvage":
+    if player has permission "MechanicMachines.set.salvage":
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.setsalvage}
+      replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.setsalvage}
+      send message "%{messagecz.autominer.setsalvage}%"
+      set {collectoptions.%player%} to true
+     else:
+      replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.setsalvage}
+      replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.setsalvage}
+      send message "%{messageen.autominer.setsalvage}%"
+      set {collectoptions.%player%} to true
+    else:
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.salvage.setnoperms}
+      replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.salvage.setnoperms}
+      send message "%{messagecz.autominer.salvage.setnoperms}%"
+     else:
+      replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.salvage.setnoperms}
+      replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.salvage.setnoperms}
+      send message "%{messageen.autominer.salvage.setnoperms}%"	 
+  if argument-text-1 is "reset":
+   if argument-text-2 is "salvage":
+    if player has permissions "MechanicMachines.reset.salvage":
+     clear {collectlocationlocals::*}
+     set {collectlocationtotals.%player%} to 0     
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.salvagereseted}
+      replace all "<tamername>" with "%{tamername}%" in {messagecz.autominer.salvagereseted}
+      send message "%{messagecz.autominer.salvagereseted}%" 
+     else:
+      replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.salvagereseted}
+      replace all "<tamername>" with "%{tamername}%" in {messageen.autominer.salvagereseted}
+      send message "%{messageen.autominer.salvagereseted}%"
+    else: 
+     if {mechanicsmachinelocale} is "cs" or "cz":	 
+      replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.salvage.resetnoperms}
+      replace all "<tamername>" with "%{tamername}%" in {messagecz.autominer.salvage.resetnoperms}
+      send message "%{messagecz.autominer.salvage.resetnoperms}%"
+     else:
+      replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.salvage.resetnoperms}
+      replace all "<tamername>" with "%{tamername}%" in {messageen.autominer.salvage.resetnoperms}
+      send message "%{messageen.autominer.salvage.resetnoperms}%"	
+
+  
+on break dispenser:
+ if {autominer.%location of block%} is true:
+  if {mechanicsmachinelocale} is "cz" or "cs":
+   replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.break}
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.break}
+   send message "%{messagecz.autominer.break}%"
+   execute console command "give %player% dispenser 1 name:%{autominername}% lore:%{autominerlore}%"
+  else:
+   replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.break}
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.break}
+   send message "%{messageen.autominer.break}%"
+   execute console command "give %player% dispenser 1 name:%{autominername}% lore:%{autominerlore}%" 
+ if {autominerbreaklogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt"
+   write "[%now%] %player% broke Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt"
+   write "[%now%] %player% broke Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Break/all.txt" 
+ if {autominerbreaklogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt" doesn't exist:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt"
+   create file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt"
+   write "[%now%] %player% broke Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt"
+   write "[%now%] %player% broke Autominer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Break/Players/%player%.txt" 
+ 
+on rightclick:
+ if clicked block is chest, trapped chest, furnace, hopper or dispenser:
+  if {collectoptions.%player%} is true:
+   if {collectlocationtotals.%player%} is 0:
+    set {collectlocationss.%player%} to clicked block
+    set {collectoptions.%player%} to false 
+    add 1 to {collectlocationtotals.%player%}
+    set {locationfo.%player%} to location of clicked block
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.salvage.was_set}
+     replace all "<tamername>" with "%{tamername}%" in {messagecz.autominer.salvage.was_set}
+     send message "%{messagecz.autominer.salvage.was_set}%"
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.salvage.was_set}
+     replace all "<tamername>" with "%{tamername}%" in {messageen.autominer.salvage.was_set}
+     send message "%{messageen.autominer.salvage.was_set}%"	
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     replace all "<prefix>" with "%{mechprefix}%" in {messagecz.autominer.salvagealreadyset}
+     replace all "<autominername>" with "%{autominername}%" in {messagecz.autominer.salvagealreadyset}
+     send message "%{messagecz.autominer.salvagealreadyset}%"
+     set {collectoptions.%player%} to false 
+    else:
+     replace all "<prefix>" with "%{mechprefix}%" in {messageen.autominer.salvagealreadyset}
+     replace all "<autominername>" with "%{autominername}%" in {messageen.autominer.salvagealreadyset}
+     send message "%{messageen.autominer.salvagealreadyset}%"
+     set {collectoptions.%player%} to false 
+ if {autominersalvagelogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Salvage-set/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/autominer/Salvage-set/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/autominer/Salvage-set/all.txt"
+   write "[%now%] %player% set salvage at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/autominer/Salvage-set/all.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/autominer/Salvage-set/all.txt"
+   write "[%now%] %player% set salvage at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/autominer/Salvage-set/all.txt" 
+ if {autominersalvageplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Autominer/Salvage-set/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/autominer/Salvage-set/Players/%player%.txt"
+   write "[%now%] %player% set salvage at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Salvage-set/Players/%player%.txt"
+  else:
+   write "[%now%] %player% set salvage at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Autominer/Salvage-set/Players/%player%.txt" 
+
+   
+command /givetm [<player>]:
+ trigger:
+  {usetamer} is "true"
+  if player has permission "MechanicMachines.give.tamer":
+   execute console command "give %player% diamond_block 1 name:%{tamername}% lore:%{tamerlore}%"
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.gived}
+    replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.gived}
+    send message "%{messagecz.tamer.gived}%"
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.gived}
+    replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.gived}
+    send message "%{messageen.tamer.gived}%"
+  else:
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.givenoperms}
+    replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.givenoperms}
+    send message "%{messagecz.tamer.givenoperms}%" 
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.givenoperms}
+    replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.givenoperms}
+    send message "%{messageen.tamer.givenoperms}%" 
+	
+command /givewc [<player>]:
+ trigger:
+  {usewoodcutter} is "true"
+  if player has permission "MechanicMachines.give.woodcutter":
+   execute console command "give %player% diamond_block 1 name:%{woodcuttername}% lore:%{woodcutterlore}%"
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.gived}
+    replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.gived}
+    send message "%{messagecz.woodcutter.gived}%"
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.gived}
+    replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.gived}
+    send message "%{messageen.woodcutter.gived}%"
+  else:
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.givenoperms}
+    replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.givenoperms}
+    send message "%{messagecz.woodcutter.givenoperms}%" 
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.givenoperms}
+    replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.givenoperms}
+    send message "%{messageen.woodcutter.givenoperms}%" 
+	
+  
+  
+on place diamond block:
+ name of tool of player is "%{tamername}%":
+  {usetamer} is "true"
+  set {tamer.%location of block%} to true
+  set {tameron.%location of block%} to false
+  if {mechanicsmachinelocale} is "cs" or "cz": 
+   replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.place}
+   replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.place}
+   send message "%{messagecz.tamer.place}%"
+  else:
+   replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.place}
+   replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.place}
+   send message "%{messageen.tamer.place}%" 
+ if {tamerplacelogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Tamer/place/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Tamer/place/all.txt"
+   write "[%now%] %player% broke breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/place/all.txt"
+  else:
+   write "[%now%] %player% broke breaker at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/place/all.txt"
+ if {tamerplacelogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt"
+   write "[%now%] %player% broke Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt"
+   write "[%now%] %player% placed Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/place/Players/%player%.txt"
+  
+on break diamond block:
+ {tamer.%location of block%} is true 
+ set {tamer.%location of block%} to false 
+ execute console command "give %player% diamond_block 1 name:%{tamername}% lore:%{tamerlore}%"
+ if {mechanicsmachinelocale} is "cz" or "cs":
+  replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.break}
+  send message "%{messagecz.tamer.break}%" 
+ else:
+  replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.break}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.break}
+  send message "%{messageen.tamer.break}%"
+ if {tamerbreaklogall} is "true":
+  if file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt"
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt"
+   write "[%now%] %player% broke Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt"
+   write "[%now%] %player% broke Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/Break/all.txt" 
+ if {tamerbreaklogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt" doesn't exist:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt"
+   create file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt"
+   write "[%now%] %player% broke Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt"
+   write "[%now%] %player% broke Tamer at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/Tamer/Break/Players/%player%.txt"  
+ 
+on rightclick on diamond block:
+ if {tamer.%location of block%} is true:
+  if {tameron.%location of block%} is true:
+   set {tameron.%location of block%} to false 
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.off}
+    replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.off}
+    send message "%{messagecz.tamer.off}%" 
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.off}
+    replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.off}
+    send message "%{messageen.tamer.off}%"    
+  else:
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.tamer.on}
+    replace all "<tamername>" with "%{tamername}%" in {messagecz.tamer.on}
+    send message "%{messagecz.tamer.on}%" 
+   else:
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.tamer.on}
+    replace all "<tamername>" with "%{tamername}%" in {messageen.tamer.on}
+    send message "%{messageen.tamer.on}%" 
+   set {tameron.%location of block%} to true
+   loop {tamermaxtimes} times:
+    loop all entities in radius {tamerradius} around the event-block:
+     if loop-entity is a wolf:
+      {owner.%event-entity%} is not set
+      loop all items in inventory of block over the event-block:
+       if loop-item is bone: 
+        tame loop-entity to player 
+        remove 1 of loop-item from inventory of block over the event-block
+      loop {tamercooldown} times:
+       wait a second
+     if loop-entity is a ocelot:
+      {owner.%event-entity%} is not set
+      loop all items in inventory of block over the event-block:
+       if loop-item is fish: 
+        tame loop-entity to player 
+        remove 1 of loop-item from inventory of block over the event-block
+      loop {tamercooldown} times:
+       wait a second
+     if loop-entity is a horse:
+      {owner.%event-entity%} is not set
+      loop all items in inventory of block over the event-block:
+       if loop-item is apple: 
+        tame loop-entity to player 
+        remove 1 of loop-item from inventory of block over the event-block
+      loop {tamercooldown} times:
+       wait a second
+	   
+on tame:
+ set {owner.%event-entity%} to tamer
+	   
+on command:
+ if command is "%{mechanicshopcommand}%" or "/%{mechanicshopcommand}%":
+  if player has permission "%{mechanicshoppermission}%":
+   cancel the event 
+   open chest with 1 rows named "%{mechanicshopname}%" to player
+   replace all "<price>" with "%{mechanicshopprice5}%" in {mechanicshoplore5}
+   replace all "<price>" with "%{mechanicshopprice4}%" in {mechanicshoplore4}
+   replace all "<price>" with "%{mechanicshopprice3}%" in {mechanicshoplore3}
+   replace all "<price>" with "%{mechanicshopprice2}%" in {mechanicshoplore2}
+   replace all "<price>" with "%{mechanicshopprice1}%" in {mechanicshoplore1}
+   format slot 0 of player with dispenser named "%{mechanicshopname1}%" with lore "%{mechanicshoplore1}%" to close then run "sudo %player% buy1"
+   format slot 1 of player with dispenser named "%{mechanicshopname2}%" with lore "%{mechanicshoplore2}%" to close then run "sudo %player% buy2"
+   format slot 2 of player with dispenser named "%{mechanicshopname3}%" with lore "%{mechanicshoplore3}%" to close then run "sudo %player% buy3"
+   format slot 3 of player with dispenser named "%{mechanicshopname4}%" with lore "%{mechanicshoplore4}%" to close then run "sudo %player% buy4"
+   format slot 4 of player with dispenser named "%{mechanicshopname5}%" with lore "%{mechanicshoplore5}%" to close then run "sudo %player% buy5"
+command /buy1:
+ trigger:
+  if {mechanicshopenabled} is "true" or true:
+   if balance of player is larger than {mechanicshopprice1}-1:
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.nomoney}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.nomoney}
+    if {mechanicshopitem1} is "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+     if {mechanicshopitem1} is "tamer" or "Tamer":
+      execute console command "give %player% diamond_block %{mechanicshopamount1}% name:%{tamername}% lore:%{tamerlore}%"
+     if {mechanicshopitem1} is "breaker" or "Breaker":
+      execute console command "give %player% dispenser %{mechanicshopamount1}% name:%{breakername}% lore:%{breakerlore}%"
+     if {mechanicshopitem1} is "AutoMiner", "Autominer" or "autominer":
+      execute console command "give %player% dispenser %{mechanicshopamount1}% name:%{autominername}% lore:%{autominerlore}%"
+     if {mechanicshopitem1} is "FoodGenerator","foodgenerator" or "Foodgenerator":
+      execute console command "give %player% dispenser %{mechanicshopamount1}% name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+     if {mechanicshopitem1} is "WoodCutter", "Woodcutter" or "woodcutter":
+      execute console command "give %player% diamond_block %{mechanicshopamount1}% name:%{woodcuttername}% lore:%{woodcutterlore}%"
+     remove {mechanicshopprice1} from player's account
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      send message "%{messagecz.itembought}%"
+     else:
+      send message "%{messageen.itembought}%"
+    else:
+     send message "<prefix> Problem in configuration of shop. Contact admin!"
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     send message "%{messagecz.nomoney}%"
+    else:
+     send message "%{messageen.nomoney}%"
+command /buy3:
+ trigger:
+  if {mechanicshopenabled} is "true" or true:
+   if balance of player is larger than {mechanicshopprice3}-1:
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.nomoney}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.nomoney}
+    if {mechanicshopitem3} is "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+     if {mechanicshopitem3} is "tamer" or "Tamer":
+      execute console command "give %player% diamond_block %{mechanicshopamount3}% name:%{tamername}% lore:%{tamerlore}%"
+     if {mechanicshopitem3} is "breaker" or "Breaker":
+      execute console command "give %player% dispenser %{mechanicshopamount3}% name:%{breakername}% lore:%{breakerlore}%"
+     if {mechanicshopitem3} is "AutoMiner", "Autominer" or "autominer":
+      execute console command "give %player% dispenser %{mechanicshopamount3}% name:%{autominername}% lore:%{autominerlore}%"
+     if {mechanicshopitem3} is "FoodGenerator","foodgenerator" or "Foodgenerator":
+      execute console command "give %player% dispenser %{mechanicshopamount3}% name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+     if {mechanicshopitem3} is "WoodCutter", "Woodcutter" or "woodcutter":
+      execute console command "give %player% diamond_block %{mechanicshopamount4}% name:%{woodcuttername}% lore:%{woodcutterlore}%"
+     remove {mechanicshopprice3} from player's account
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      send message "%{messagecz.itembought}%"
+     else:
+      send message "%{messageen.itembought}%"
+    else:
+     send message "<prefix> Problem in configuration of shop. Contact admin!"
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     send message "%{messagecz.nomoney}%"
+    else:
+     send message "%{messageen.nomoney}%"
+command /buy4:
+ trigger:
+  if {mechanicshopenabled} is "true" or true:
+   if balance of player is larger than {mechanicshopprice4}-1:
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.nomoney}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.nomoney}
+    if {mechanicshopitem4} is "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+     if {mechanicshopitem4} is "tamer" or "Tamer":
+      execute console command "give %player% diamond_block %{mechanicshopamount4}% name:%{tamername}% lore:%{tamerlore}%"
+     if {mechanicshopitem4} is "breaker" or "Breaker":
+      execute console command "give %player% dispenser %{mechanicshopamount4}% name:%{breakername}% lore:%{breakerlore}%"
+     if {mechanicshopitem4} is "AutoMiner", "Autominer" or "autominer":
+      execute console command "give %player% dispenser %{mechanicshopamount4}% name:%{autominername}% lore:%{autominerlore}%"
+     if {mechanicshopitem4} is "FoodGenerator","foodgenerator" or "Foodgenerator":
+      execute console command "give %player% dispenser %{mechanicshopamount4}% name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+     if {mechanicshopitem4} is "WoodCutter", "Woodcutter" or "woodcutter":
+      execute console command "give %player% diamond_block %{mechanicshopamount4}% name:%{woodcuttername}% lore:%{woodcutterlore}%"
+     remove {mechanicshopprice4} from player's account
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      send message "%{messagecz.itembought}%"
+     else:
+      send message "%{messageen.itembought}%"
+    else:
+     send message "<prefix> Problem in configuration of shop. Contact admin!"
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     send message "%{messagecz.nomoney}%"
+    else:
+     send message "%{messageen.nomoney}%"
+	 
+command /buy5:
+ trigger:
+  if {mechanicshopenabled} is "true" or true:
+   if balance of player is larger than {mechanicshopprice5}-1:
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.nomoney}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.nomoney}
+    if {mechanicshopitem4} is "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+     if {mechanicshopitem5} is "WoodCutter", "Woodcutter" or "woodcutter":
+      execute console command "give %player% diamond_block %{mechanicshopamount4}% name:%{tamername}% lore:%{tamerlore}%"
+     if {mechanicshopitem5} is "breaker" or "Breaker":
+      execute console command "give %player% dispenser %{mechanicshopamount5}% name:%{breakername}% lore:%{breakerlore}%"
+     if {mechanicshopitem5} is "AutoMiner", "Autominer" or "autominer":
+      execute console command "give %player% dispenser %{mechanicshopamount5}% name:%{autominername}% lore:%{autominerlore}%"
+     if {mechanicshopitem5} is "FoodGenerator","foodgenerator" or "Foodgenerator":
+      execute console command "give %player% dispenser %{mechanicshopamount5}% name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+     if {mechanicshopitem5} is "tamer" or "Tamer":
+      execute console command "give %player% dispenser %{mechanicshopamount5}% name:%{woodcuttername}% lore:%{woodcutterlore}%"
+     remove {mechanicshopprice5} from player's account
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      send message "%{messagecz.itembought}%"
+     else:
+      send message "%{messageen.itembought}%"
+    else:
+     send message "<prefix> Problem in configuration of shop. Contact admin!"
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     send message "%{messagecz.nomoney}%"
+    else:
+     send message "%{messageen.nomoney}%"
+	 
+command /buy2:
+ trigger:
+  if {mechanicshopenabled} is "true" or true:
+   if balance of player is larger than {mechanicshopprice2}-1:
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.itembought}
+    replace all "<prefix>" with "%{mechprefix}%" in {messagecz.nomoney}
+    replace all "<prefix>" with "%{mechprefix}%" in {messageen.nomoney}
+    if {mechanicshopitem2} is "tamer", "Tamer", "breaker", "Breaker", "AutoMiner", "Autominer", "autominer", "FoodGenerator","foodgenerator", "" , "Foodgenerator", "WoodCutter", "woodcutter" or "WoodCutter":
+     if {mechanicshopitem2} is "tamer" or "Tamer":
+      execute console command "give %player% diamond_block %{mechanicshopamount2}% name:%{tamername}% lore:%{tamerlore}%"
+     if {mechanicshopitem2} is "breaker" or "Breaker":
+      execute console command "give %player% dispenser %{mechanicshopamount2}% name:%{breakername}% lore:%{breakerlore}%"
+     if {mechanicshopitem2} is "AutoMiner", "Autominer" or "autominer":
+      execute console command "give %player% dispenser %{mechanicshopamount2}% name:%{autominername}% lore:%{autominerlore}%"
+     if {mechanicshopitem2} is "FoodGenerator","foodgenerator" or "Foodgenerator":
+      execute console command "give %player% dispenser %{mechanicshopamount2}% name:%{foodgeneratorname}% lore:%{foodgeneratorlore}%"
+     if {mechanicshopitem4} is "WoodCutter", "Woodcutter" or "woodcutter":
+      execute console command "give %player% diamond_block %{mechanicshopamount4}% name:%{woodcuttername}% lore:%{woodcutterrlore}%"
+     remove {mechanicshopprice2} from player's account 
+     if {mechanicsmachinelocale} is "cs" or "cz":
+      send message "%{messagecz.itembought}%"
+     else:
+      send message "%{messageen.itembought}%"
+    else:
+     send message "Problem in configuration of shop. Contact admin!"
+   else:
+    if {mechanicsmachinelocale} is "cs" or "cz":
+     send message "%{messagecz.nomoney}%"
+    else:
+     send message "%{messageen.nomoney}%"
+	 
+on place iron block:
+ name of tool of player is "WoodCutter":
+  set {woodcutter.%location of block%} to true 
+  set {woodcutteron.%location of block%} to false
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.place}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.place}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.place}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.place}
+  if {mechanicsmachinelocale} is "cs" or "cz":
+   send message "%{messagecz.woodcutter.place}%"
+  else:
+   send message "%{messageen.woodcutter.place}%"
+ if {woodcutterPlacelogall} is "true":
+  if file "plugins/Mechanic Machines/logs/woodcutter/Place/all.txt" doesn't exist:
+   create file "plugins/Mechanic Machines/logs/woodcutter/Place/all.txt"
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Place/all.txt"
+  else:
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Place/all.txt"
+ if {woodcutterPlacelogplayer} is "true":
+  if file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt" doesn't exist:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt"
+   create file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt"
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt"
+  else:
+   set {countfile} to line count of file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt"
+   write "[%now%] %player% placed woodcutter at %location of player% in world %world%" at line {countfile}+1 to file "plugins/Mechanic Machines/logs/woodcutter/Place/Players/%player%.txt"
+
+  
+on rightclick on iron block:
+ {woodcutter.%location of clicked block%} is true:
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.on}
+  replace all "<prefix>" with "%{mechprefix}%" in {messagecz.woodcutter.off}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.on}
+  replace all "<prefix>" with "%{mechprefix}%" in {messageen.woodcutter.off}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.on}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messagecz.woodcutter.off}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.on}
+  replace all "<woodcuttername>" with "%{woodcuttername}%" in {messageen.woodcutter.off}
+  if {woodcutteron.%location of clicked block%} is true:
+   set {woodcutteron.%location of clicked block%} to false
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    send message "%{messagecz.woodcutter.off}%"
+   else:
+    send message "%{messageen.woodcutter.off}%"
+   stop trigger
+  else:
+   set {woodcutteron.%location of clicked block%} to true
+   if {mechanicsmachinelocale} is "cs" or "cz":
+    send message "%{messagecz.woodcutter.on}%"
+   else:
+    send message "%{messageen.woodcutter.on}%"
+   stop trigger
+   
+every second:
+ add 1 to {time}
+ if {time} is {woodcuttercooldown}:
+  loop all players:
+   loop all blocks in radius {woodcutterradiusplayer} around the loop-player:
+    if loop-block is iron block:
+     {woodcutteron.%location of loop-block%} is true:
+      loop all blocks in radius {woodcutterradiusblock} around the loop-block:
+       if loop-block-2 is any log:
+        add loop-block-2 to inventory of block over loop-block-1
+        set block at loop-block-2 to air
+        if block under the loop-block-2 is dirt or grass:
+         set block at the loop-block-2 to sapling
+
+
+  
