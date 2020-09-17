@@ -66,7 +66,7 @@ command /moe [<text>] [<text>] [<text>]:
                         if argument-text-2 is "en":
                                 if player has permission "mobedit.setlang":
                                         if {moelocaleen} is true:
-                                                send message "&c&cYou can´t set your language to english, because language is english yet!" to player
+                                                send message "&c&cYou canÂ´t set your language to english, because language is english yet!" to player
                                         else:
                                                 send message "&a&aLanguage was set to english" to player
                                                 set {moelocalecz} to false
@@ -81,7 +81,7 @@ command /moe [<text>] [<text>] [<text>]:
                                                 set {moelocaleen} to false
                                 else:
                                         if {moelocaleen} is true:
-                                                send message "&c&cYou don´t have permission. See /moe permissions" to player
+                                                send message "&c&cYou donÂ´t have permission. See /moe permissions" to player
                                         else:
                                                 send message "&c&cNemas prava. Podivej se na /moe permissions pro informace" to player
                 if argument-text-1 is "permissions":
