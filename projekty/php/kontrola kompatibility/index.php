@@ -1,7 +1,8 @@
 <!doctype html>
 <head>
   <meta charset="utf-8">
-  <title>Kontrolor kompatibility</title>
+  <title>Kontrola kompatibility</title>
+</head>
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link rel="stylesheet" type="text/css" href="jquery.confirm/jquery.confirm.css" />
