@@ -1,4 +1,8 @@
+<!doctype html>
 <head>
+  <meta charset="utf-8">
+  <title>Přidat komponentu</title>
+</head>
 <div style="display:none;"><endora></div>
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <meta http-equiv="content-type" content="text/plain;" />
