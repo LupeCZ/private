@@ -1,3 +1,7 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>Hodnoceni zdroje</title>
 <head>
 <div style="display:none;"><endora></div>
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
