@@ -1,5 +1,5 @@
-Seznam mých projektů.
-Najdete zde PHP, C# a Javu (konkrétně spigotApi). 
+Seznam mých projektů\
+Najdete zde PHP, C# a Javu (konkrétně spigotApi). \
 PHP - program na kontrolu kompatibility PC komponent, zhodnocuje, zda komponenty pasují, můžete si přidat komponenty zkopírováním a vložením z webu CZC (soubor add.php), můžete si vkládat do seznamu a pak porovnávat kompatibilitu, pokud něco není v pořádku, vyskočí upozornění. Využívá se zde primárně PHP, trocha JQuery (naseptavac.php), CSS je spíše experimentální, html je samozřejmost. Aktuálně web předělávám na trochu jiný způsob.
 Zde není použit žádný framework, preferuji si dělat vše sama.
 Java - Minecraft je populárníé hra, nějakou dobu jsem se zabývala tvorbou pluginů pro ní. Pluginy využívají jazyk Java a samozřejmě Api Spigotu. Není to skutečná java jako pro aplikace, nicméně to stačilo k pochopení základů Javy.
