@@ -1,4 +1,7 @@
+<!doctype html>
 <head>
+  <meta charset="utf-8">
+  <title>Kontrolor kompatibility</title>
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link rel="stylesheet" type="text/css" href="jquery.confirm/jquery.confirm.css" />
@@ -17,7 +20,7 @@ $_SESSION["deska"] = 0;
 ?><script>
 function zdroje()
 {
-var ahoj = "hola";
+var ahoj = "";
    window.location.href = "http://lupework.eu/spotreba.php";
 }
 function zdrojhodnoceni()
