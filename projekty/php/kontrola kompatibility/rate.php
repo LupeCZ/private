@@ -468,15 +468,16 @@ function vysledek($vysledek){
 
 echo "<h1>Nejlepší zdroje</h1>";
 
-
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+ $sql = "select * from komponenty.pocet order by celkem desc"; 
 $result = $conn->query($sql);
-	
+
 $poradi = 0;
 	  $stredni = false;
 	  $strednis = false;
 	  	  $unsafe = false;
 		  $fuj = false;
+
 	  	 echo "------------ TOP zdroje ------------</p>" ;
  while($row = $result->fetch_assoc()){
 
@@ -517,4 +518,4 @@ $poradi = 0;
 	 }
 	 }
 	 echo "".$poradi.". ".$row["nazev"]." - ".$row["celkem"]."</p>";
- }
+	}
